@@ -50,11 +50,9 @@ Person.prototype.eat = function(someFood) {
 		this.stomach.push(someFood);
 	}
 }
-
 Person.prototype.poop = function() {
 	this.stomach = [];
 }
-
 Person.prototype.toString = function() {
 	return `${this.name}, ${this.age}`;
 }
@@ -117,10 +115,16 @@ Baby.prototype.play = function() {
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1.
-  2.
-  3.
-  4.
+  1. Window Binding - When none of the other rules are met, 'this' will default to the window object, and this is because there is nothing to represent to the left of the dot. Also if you are in 'strict mode', it will return undefined.
+
+  2. Implicit Binding - Implicit binding is the most used principle for the 'this' keyword, and it means that 'this' is referencing whatever object is to the left of the dot when calling a function on an object.
+
+  3. New Binding - When you create an object by using an object constructor and the new keyword, 'this' refers to the new object being created, allowing you pass values in that will become attributes of the new object.
+
+  4. Explicit Binding - This principle is called explicit because it allows you to clearly state what the 'this' keyword is representing.
+	1) .call - The .call method invokes a function immediately and it passes in arguments 1 by 1, the required argument being the object you are calling the function on.
+	2) .apply - The .apply method also invokes a function immediately, but you pass in an array of arguments along with the object you are calling the function on.
+	3) .bind - The .bind method doesn't immediately invoke a function, but instead returns a new function, also taking in a list of arguments.
 */
 
 
