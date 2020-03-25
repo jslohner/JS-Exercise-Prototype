@@ -39,8 +39,22 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
+function Person(name, age) {
+	this.name = name;
+	this.age = age;
+	this.stomach = [];
+}
 
+Person.prototype.eat = function(someFood) {
+	if (this.stomach.length < 10) {
+		this.stomach.push(someFood);
+	}
+}
+Person.prototype.poop = function() {
+	this.stomach = [];
+}
+Person.prototype.toString = function() {
+	return `${this.name}, ${this.age}`;
 }
 
 /*
@@ -57,8 +71,26 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
+function Car(model, milesPerGallon) {
+	this.model = model,
+	this.milesPerGallon = milesPerGallon,
+	this.tank = 0,
+	this.odometer = 0;
+}
 
+Car.prototype.fill = function(gallons) {
+	this.tank += gallons;
+}
+Car.prototype.drive = function(distance) {
+	if ((this.tank - distance/this.milesPerGallon) <= 0) {
+		this.odometer += this.tank * this.milesPerGallon,
+		this.tank = 0;
+		return `I ran out of fuel at ${this.odometer} miles!`;
+	}
+	else {
+		this.odometer += distance,
+		this.tank -= distance/this.milesPerGallon;
+	}
 }
 
 /*
@@ -68,18 +100,31 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
 
+function Baby(name, age, favoriteToy) {
+	Person.call(this, name, age);
+	this.favoriteToy = favoriteToy;
 }
 
-/* 
+Baby.prototype = Object.create(Person.prototype);
+Baby.prototype.play = function() {
+	return `Playing with ${this.favoriteToy}`;
+}
+
+/*
   TASK 4
 
   In your own words explain the four principles for the "this" keyword below:
-  1. 
-  2. 
-  3. 
-  4. 
+  1. Window Binding - When none of the other rules are met, 'this' will default to the window object, and this is because there is nothing to represent to the left of the dot. Also if you are in 'strict mode', it will return undefined.
+
+  2. Implicit Binding - Implicit binding is the most used principle for the 'this' keyword, and it means that 'this' is referencing whatever object is to the left of the dot when calling a function on an object.
+
+  3. New Binding - When you create an object by using an object constructor and the new keyword, 'this' refers to the new object being created, allowing you pass values in that will become attributes of the new object.
+
+  4. Explicit Binding - This principle is called explicit because it allows you to clearly state what the 'this' keyword is representing.
+	1) .call - The .call method invokes a function immediately and it passes in arguments 1 by 1, the required argument being the object you are calling the function on.
+	2) .apply - The .apply method also invokes a function immediately, but you pass in an array of arguments along with the object you are calling the function on.
+	3) .bind - The .bind method doesn't immediately invoke a function, but instead returns a new function, also taking in a list of arguments.
 */
 
 
